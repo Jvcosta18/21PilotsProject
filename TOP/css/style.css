@@ -1,0 +1,634 @@
+/* =====================================================
+   TWENTY ONE PILOTS — Stay Alive |-/
+   css/style.css
+
+   ÍNDICE
+   ──────────────────────────────────────────────────
+   01. Variáveis & Reset
+   02. Tipografia base
+   03. Cursor customizado
+   04. Overlay de ruído (textura de grão)
+   05. Navbar
+   06. Side-dots (navegação lateral)
+   07. Hero
+   08. Eras — Layout base
+   09. Album Frame (imagem dos álbuns)
+   10. Temas por era (#era-*)
+   11. Lore / Universo Dema
+   12. Membros
+   13. Rodapé
+   14. Reveal (animação de entrada)
+   15. @keyframes
+   16. Responsividade
+   =====================================================*/
+
+
+/* ─────────────────────────────────────
+   01. VARIÁVEIS & RESET
+   Altere aqui para mudar a identidade
+   visual do site inteiro.
+───────────────────────────────────────*/
+:root {
+  --accent:    #F4D03F;   /* amarelo TØP */
+  --red:       #E74C3C;
+  --bg:        #080808;
+  --text:      #F5F0E8;
+
+  --f-display: 'Bebas Neue', sans-serif;
+  --f-mono:    'Space Mono', monospace;
+  --f-serif:   'DM Serif Display', serif;
+  --f-sans:    'Syne', sans-serif;
+
+  /* Espaçamento fluido – muda de acordo com a tela */
+  --pad-x: clamp(2.5rem, 5vw, 6rem);
+  --pad-y: clamp(4rem, 8vw, 8rem);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html                   { scroll-behavior: smooth; scrollbar-gutter: stable; }
+body                   { background: var(--bg); color: var(--text); font-family: var(--f-mono); overflow-x: hidden; cursor: none; }
+img                    { display: block; max-width: 100%; height: auto; }
+ol                     { list-style: none; }
+
+/* Foco visível para navegação por teclado */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+
+/* ─────────────────────────────────────
+   02. TIPOGRAFIA BASE
+───────────────────────────────────────*/
+h1, h2, h3 { font-family: var(--f-display); line-height: 0.9; }
+
+
+/* ─────────────────────────────────────
+   03. CURSOR CUSTOMIZADO
+   #cursor-dot  → ponto sólido (imediato)
+   #cursor-ring → anel com delay (trail)
+   mix-blend-mode: difference inverte cores
+───────────────────────────────────────*/
+#cursor-dot {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 99999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+}
+
+#cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(244,208,63,.45);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 99998;
+  /* Delay cria o efeito de arrasto */
+  transition: left .13s ease, top .13s ease;
+  transform: translate(-50%, -50%);
+}
+
+
+/* ─────────────────────────────────────
+   04. OVERLAY DE RUÍDO
+   Textura SVG sobre toda a página.
+   pointer-events:none = não interfere em cliques.
+───────────────────────────────────────*/
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9998; opacity: .2;
+}
+
+
+/* ─────────────────────────────────────
+   05. NAVBAR
+   Começa transparente e fica sólida
+   quando o JS adiciona a classe .scrolled
+───────────────────────────────────────*/
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9990;
+  padding: 1rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .4s, border .4s;
+}
+
+#navbar.scrolled {
+  background: rgba(8,8,8,.96);
+  border-bottom: 1px solid rgba(244,208,63,.1);
+  backdrop-filter: blur(16px);
+}
+
+/* Logo TØP */
+.nav-brand {
+  font-family: var(--f-display); font-size: 1.5rem;
+  color: var(--accent); letter-spacing: .1em; text-decoration: none;
+}
+
+/* Links de navegação */
+.nav-links { display: flex; gap: 1.6rem; list-style: none; }
+
+.nav-links a {
+  font-size: .58rem; letter-spacing: .25em; text-transform: uppercase;
+  color: rgba(245,240,232,.45); text-decoration: none; transition: color .35s;
+  position: relative;
+}
+
+/* Sublinhado que cresce no hover */
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--accent); transition: width .3s;
+}
+.nav-links a:hover             { color: var(--accent); }
+.nav-links a:hover::after      { width: 100%; }
+
+
+/* ─────────────────────────────────────
+   06. SIDE-DOTS (NAVEGAÇÃO LATERAL)
+   Pontos que indicam a era atual.
+   Classe .active gerenciada pelo JS.
+   Tooltip via ::after com data-label.
+───────────────────────────────────────*/
+#side-dots {
+  position: fixed; left: 1.4rem; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: .7rem; z-index: 9990;
+}
+
+.sdot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(245,240,232,.18);
+  border: 1px solid rgba(245,240,232,.18);
+  cursor: pointer; transition: all .3s;
+  position: relative; appearance: none; padding: 0;
+}
+
+/* Ponto ativo: maior e amarelo */
+.sdot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.8); }
+
+/* Tooltip com nome da era */
+.sdot::after {
+  content: attr(data-label);
+  position: absolute; left: 1.3rem; top: 50%; transform: translateY(-50%);
+  font-size: .5rem; letter-spacing: .2em; text-transform: uppercase;
+  white-space: nowrap; color: rgba(245,240,232,.35);
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+  font-family: var(--f-mono);
+}
+.sdot:hover::after, .sdot.active::after { opacity: 1; }
+
+
+/* ─────────────────────────────────────
+   07. HERO
+   Tela cheia de entrada com grade animada,
+   logo flutuante, título e indicador de scroll.
+───────────────────────────────────────*/
+#hero {
+  height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; background: #050505;
+}
+
+/* Grade de linhas que pulsa */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(244,208,63,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,208,63,.035) 1px, transparent 1px);
+  background-size: 58px 58px;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+
+/* Brilho radial central */
+.hero-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 55% at 50% 50%, rgba(244,208,63,.05) 0%, transparent 70%);
+}
+
+/* Partícula — animada pelo JS via .star-particle */
+.star-particle {
+  position: absolute; border-radius: 50%;
+  pointer-events: none; animation: starFloat linear infinite;
+}
+
+/* Logo ícone de esqueleto flutuante */
+.hero-logo { position: relative; z-index: 2; margin-bottom: 1.8rem; animation: floatY 5s ease-in-out infinite; }
+
+/* Eyebrow (localização / info) */
+.hero-eyebrow {
+  font-size: .62rem; letter-spacing: .5em; color: var(--accent);
+  text-transform: uppercase; margin-bottom: .8rem;
+  position: relative; z-index: 2;
+  opacity: 0; animation: fadeUp 1s .4s forwards;
+}
+
+/* Título principal */
+.hero-title {
+  font-family: var(--f-display);
+  font-size: clamp(5rem, 13vw, 13rem);
+  line-height: .86; text-align: center;
+  position: relative; z-index: 2;
+  opacity: 0; animation: fadeUp 1s .6s forwards;
+}
+.hero-title-highlight { color: var(--accent); }
+
+/* Subtítulo itálico */
+.hero-sub {
+  font-family: var(--f-serif); font-style: italic;
+  font-size: clamp(.9rem, 2vw, 1.35rem);
+  color: rgba(245,240,232,.42); margin-top: 1.4rem; text-align: center;
+  position: relative; z-index: 2;
+  opacity: 0; animation: fadeUp 1s .9s forwards;
+}
+
+/* Indicador de scroll */
+.hero-scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  font-size: .58rem; letter-spacing: .35em; color: rgba(245,240,232,.28);
+  animation: fadeIn 2s 1.5s both; z-index: 2;
+}
+.scroll-bar {
+  width: 1px; height: 52px;
+  background: linear-gradient(var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+
+/* ─────────────────────────────────────
+   08. ERAS — LAYOUT BASE
+   Grade 2 colunas: info | arte
+   .flip inverte para: arte | info
+───────────────────────────────────────*/
+.era {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; position: relative; overflow: hidden;
+}
+
+.era.flip .era-info { order: 2; }
+.era.flip .era-art  { order: 1; }
+
+/* Painel de texto */
+.era-info { padding: var(--pad-y) var(--pad-x); position: relative; z-index: 2; }
+
+/* Painel de imagem */
+.era-art {
+  height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+/* Número de fundo decorativo (01, 02…) */
+.era-number {
+  position: absolute; font-family: var(--f-display);
+  font-size: clamp(10rem, 22vw, 22rem);
+  line-height: 1; right: -.05em; top: 50%; transform: translateY(-50%);
+  pointer-events: none; user-select: none; opacity: .032; z-index: 0; color: #fff;
+}
+
+/* Chip de metadados: "2009 · Twenty One Pilots" */
+.era-chip {
+  font-size: .58rem; letter-spacing: .4em; text-transform: uppercase;
+  margin-bottom: .85rem; opacity: .45;
+  display: flex; align-items: center; gap: .8rem;
+}
+.era-chip::before { content: ''; display: block; width: 30px; height: 1px; background: currentColor; }
+
+/* Título do álbum */
+.era-title {
+  font-family: var(--f-display);
+  font-size: clamp(2.8rem, 6vw, 6.5rem);
+  line-height: .88; margin-bottom: 1.3rem; letter-spacing: -.01em;
+}
+
+/* Subtítulo itálico */
+.era-tagline {
+  font-family: var(--f-serif); font-style: italic;
+  font-size: clamp(.85rem, 1.5vw, 1.15rem);
+  opacity: .58; margin-bottom: 1.5rem; line-height: 1.5;
+}
+
+/* Pills de metadados */
+.pills { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.7rem; }
+.pill {
+  padding: .28rem .85rem;
+  border: 1px solid rgba(255,255,255,.1);
+  font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; opacity: .6;
+}
+
+/* Descrição */
+.era-desc { font-size: .73rem; line-height: 1.95; opacity: .62; margin-bottom: 1.8rem; max-width: 450px; }
+
+/* Label "Tracklist Completa" */
+.tracklist-header { font-size: .53rem; letter-spacing: .38em; text-transform: uppercase; opacity: .32; margin-bottom: .75rem; }
+
+/* Grid 2 colunas das faixas */
+.tracklist { display: grid; grid-template-columns: 1fr 1fr; gap: .18rem 1rem; counter-reset: track-counter; }
+
+/* Faixa individual */
+.track {
+  font-size: .68rem; display: flex; align-items: center;
+  padding: .25rem 0; border-bottom: 1px solid rgba(255,255,255,.045);
+  opacity: .52; transition: opacity .25s; cursor: default;
+  counter-increment: track-counter;
+}
+/* Número automático via CSS counter */
+.track::before {
+  content: counter(track-counter, decimal-leading-zero);
+  font-size: .5rem; opacity: .35; min-width: 1.6rem; flex-shrink: 0; font-family: var(--f-mono);
+}
+.track:hover { opacity: 1; }
+
+/* Faixas em destaque */
+.track.highlight                 { opacity: .9; font-weight: 700; }
+.track.highlight::after          { content: ' ✦'; font-size: .48rem; opacity: .45; margin-left: .2rem; }
+
+/* Divisória entre eras */
+.era-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.055), transparent); }
+
+
+/* ─────────────────────────────────────
+   09. ALBUM FRAME (imagem dos álbuns)
+
+   .album-frame          → quadrado padrão (capas)
+   .art-full-panel       → painel full-height (fotos de banda landscape)
+───────────────────────────────────────*/
+
+/* Frame quadrado */
+.album-frame {
+  width: clamp(230px, 34vw, 400px);
+  height: clamp(230px, 34vw, 400px);
+  position: relative; z-index: 2;
+  box-shadow: 0 28px 75px rgba(0,0,0,.65);
+  border-radius: 3px; overflow: hidden; margin: 0;
+  transition: transform .7s var(--ease), box-shadow .7s var(--ease);
+}
+.album-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+
+/* Caption que aparece no hover */
+.album-frame figcaption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: .8rem 1rem;
+  background: linear-gradient(transparent, rgba(0,0,0,.78));
+  font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(245,240,232,.85);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .3s, transform .3s;
+}
+.album-frame:hover figcaption { opacity: 1; transform: translateY(0); }
+.album-frame:hover             { box-shadow: 0 40px 100px rgba(0,0,0,.75); }
+
+/* ──────────────────────────────────────────
+   Painel full-height para fotos landscape.
+   Usado nas eras Blurryface e Trench.
+   A imagem cobre toda a coluna de arte.
+────────────────────────────────────────────*/
+.era-art.art-full-panel { padding: 0; }
+
+.era-art.art-full-panel .album-frame {
+  width: 100%; height: 100%;
+  border-radius: 0; box-shadow: none;
+}
+
+/* Gradiente de fade suave nas bordas do painel */
+.era-art.art-full-panel::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(to right,  rgba(0,0,0,.35) 0%, transparent 30%),
+    linear-gradient(to bottom, rgba(0,0,0,.2)  0%, transparent 40%),
+    linear-gradient(to top,    rgba(0,0,0,.2)  0%, transparent 40%);
+  z-index: 3; pointer-events: none;
+}
+
+.era-art.art-full-panel .album-frame img { object-fit: cover; object-position: center top; }
+
+
+/* ─────────────────────────────────────
+   10. TEMAS POR ERA
+   Cada era tem background, cor de título
+   e ajustes de contraste próprios.
+───────────────────────────────────────*/
+
+/* ── Self-Titled ── roxo/índigo */
+#era-selftitled                          { background: #0B0B1C; }
+#era-selftitled .era-art                 { background: radial-gradient(ellipse at center, #16164A 0%, #0B0B1C 70%); }
+#era-selftitled .era-title,
+#era-selftitled .era-chip                { color: #9B8FE8; }
+
+/* Grade pontilhada decorativa desta era */
+.era-grid-overlay {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(155,143,232,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155,143,232,.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+/* ── Regional at Best ── azul meia-noite */
+#era-regional                            { background: #090F20; }
+#era-regional .era-art                   { background: radial-gradient(ellipse at center, #182F50 0%, #090F20 70%); }
+#era-regional .era-title,
+#era-regional .era-chip                  { color: #5BA4CF; }
+
+/* ── Vessel ── creme + vermelho escuro (fundo claro) */
+#era-vessel                              { background: #EADFC8; color: #1A1A1A; }
+#era-vessel .era-art                     { background: linear-gradient(135deg, #F3E9D5, #DDD0B0); }
+#era-vessel .era-title,
+#era-vessel .era-chip                    { color: #8B2020; }
+#era-vessel .era-number                  { color: #000; opacity: .038; }
+#era-vessel .era-tagline                 { color: rgba(26,26,26,.55); }
+#era-vessel .era-desc                    { color: rgba(26,26,26,.62); }
+#era-vessel .track                       { border-bottom-color: rgba(0,0,0,.08); color: #1A1A1A; }
+#era-vessel .pill                        { border-color: rgba(0,0,0,.15); color: #333; }
+#era-vessel .tracklist-header            { color: #1A1A1A; }
+
+/* ── Blurryface ── preto com vermelho */
+#era-blurryface                          { background: #080808; }
+#era-blurryface .era-art                 { background: #0A0A0A; }
+#era-blurryface .era-title,
+#era-blurryface .era-chip                { color: #E74C3C; }
+
+/* Fundo das linhas de glitch (elementos criados pelo JS) */
+.glitch-bg  { position: absolute; inset: 0; overflow: hidden; }
+.glitch-line {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: rgba(231,76,60,.1); animation: glitchScroll linear infinite;
+}
+
+/* ── Trench ── dourado sobre preto profundo */
+#era-trench                              { background: #130900; color: #F4D03F; }
+#era-trench .era-art                     { background: radial-gradient(ellipse at center, #352005 0%, #130900 70%); }
+#era-trench .era-title                   { color: #F4D03F; text-shadow: 0 0 40px rgba(244,208,63,.22); }
+#era-trench .era-chip                    { color: var(--accent); }
+#era-trench .era-number                  { color: var(--accent); }
+#era-trench .era-tagline                 { color: rgba(244,208,63,.52); }
+#era-trench .era-desc                    { color: rgba(244,208,63,.6); }
+#era-trench .track                       { color: rgba(244,208,63,.58); border-bottom-color: rgba(244,208,63,.07); }
+#era-trench .pill                        { border-color: rgba(244,208,63,.16); color: rgba(244,208,63,.62); }
+#era-trench .tracklist-header            { color: rgba(244,208,63,.38); }
+
+/* Efeito de scan horizontal (CRT) */
+.scanlines {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(244,208,63,.016) 3px, rgba(244,208,63,.016) 4px);
+  pointer-events: none;
+}
+
+/* ── Scaled and Icy ── azul gelo */
+#era-scaled                              { background: #040C16; }
+#era-scaled .era-art                     { background: radial-gradient(ellipse at center, #0D2035 0%, #040C16 70%); }
+#era-scaled .era-title,
+#era-scaled .era-chip                    { color: #4FC3F7; }
+
+/* ── Clancy ── VERMELHO SANGUE (pedido do usuário) */
+#era-clancy                              { background: #1A0303; color: #FFDDD5; }
+#era-clancy .era-art                     { background: radial-gradient(ellipse at center, #5C0A0A 0%, #1A0303 70%); }
+#era-clancy .era-title                   { color: #FF3B3B; text-shadow: 0 0 40px rgba(255,59,59,.3); }
+#era-clancy .era-chip                    { color: #FF3B3B; }
+#era-clancy .era-number                  { color: #FF3B3B; }
+#era-clancy .era-tagline                 { color: rgba(255,200,190,.65); }
+#era-clancy .era-desc                    { color: rgba(255,210,200,.7); }
+#era-clancy .track                       { color: rgba(255,200,185,.65); border-bottom-color: rgba(255,80,60,.12); }
+#era-clancy .pill                        { border-color: rgba(255,80,60,.22); color: rgba(255,200,185,.65); }
+#era-clancy .tracklist-header            { color: rgba(255,180,160,.4); }
+
+/* ── Breach ── preto com vermelho quente */
+#era-breach                              { background: #030303; }
+#era-breach .era-art                     { background: radial-gradient(ellipse at center, #180505 0%, #030303 70%); }
+#era-breach .era-title                   { color: #FF4444; text-shadow: 0 0 40px rgba(255,68,68,.3); }
+#era-breach .era-chip                    { color: #FF4444; }
+
+
+/* ─────────────────────────────────────
+   11. LORE / UNIVERSO DEMA
+───────────────────────────────────────*/
+#lore { background: #050505; padding: 7rem clamp(2rem,8vw,10rem); overflow: hidden; }
+
+.lore-title { font-family: var(--f-display); font-size: clamp(3.5rem,9vw,9rem); line-height: .88; margin-bottom: 3.5rem; color: var(--accent); }
+
+.lore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px,1fr)); gap: 1.4rem; }
+
+.lore-card {
+  border: 1px solid rgba(255,255,255,.055); padding: 1.8rem;
+  background: rgba(255,255,255,.012);
+  position: relative; overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.lore-card:hover { border-color: rgba(244,208,63,.22); transform: translateY(-4px); }
+
+/* Barra lateral amarela que cresce no hover */
+.lore-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 0; background: var(--accent); transition: height .4s;
+}
+.lore-card:hover::before { height: 100%; }
+
+.lore-icon  { font-size: 1.6rem; margin-bottom: .9rem; }
+.lore-card h3 { font-family: var(--f-sans); font-weight: 800; font-size: .95rem; color: var(--accent); margin-bottom: .65rem; }
+.lore-card p  { font-size: .7rem; line-height: 1.88; opacity: .55; }
+
+
+/* ─────────────────────────────────────
+   12. MEMBROS
+───────────────────────────────────────*/
+#members { background: #080808; padding: 7rem clamp(2rem,8vw,10rem); text-align: center; }
+
+#members h2 { font-family: var(--f-display); font-size: clamp(3rem,8vw,8rem); margin-bottom: 3.5rem; }
+
+.members-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 820px; margin: 0 auto; }
+
+.member-card {
+  border: 1px solid rgba(255,255,255,.07); padding: 2.2rem 1.8rem;
+  position: relative; transition: transform .35s, border-color .35s;
+}
+.member-card:hover { transform: translateY(-5px); }
+
+.member-card.tyler       { border-color: rgba(244,208,63,.13); }
+.member-card.tyler:hover { border-color: rgba(244,208,63,.38); }
+.member-card.josh        { border-color: rgba(231,76,60,.13); }
+.member-card.josh:hover  { border-color: rgba(231,76,60,.38); }
+
+/* Container circular da foto */
+.member-photo-wrap { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.4rem; border: 2px solid rgba(255,255,255,.08); }
+.member-card.tyler .member-photo-wrap { border-color: rgba(244,208,63,.38); }
+.member-card.josh  .member-photo-wrap { border-color: rgba(231,76,60,.38); }
+
+.member-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+.member-name              { font-family: var(--f-display); font-size: 2rem; margin-bottom: .28rem; }
+.member-card.tyler .member-name { color: var(--accent); }
+.member-card.josh  .member-name { color: var(--red); }
+.member-role              { font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; opacity: .4; margin-bottom: 1.1rem; }
+.member-bio               { font-size: .7rem; line-height: 1.88; opacity: .55; }
+
+
+/* ─────────────────────────────────────
+   13. RODAPÉ
+───────────────────────────────────────*/
+footer {
+  background: #020202; padding: 3.5rem clamp(2rem,6vw,8rem);
+  border-top: 1px solid rgba(255,255,255,.04);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.8rem;
+}
+
+.footer-brand { display: flex; flex-direction: column; gap: .4rem; }
+.footer-logo  { font-family: var(--f-display); font-size: 2.8rem; color: var(--accent); display: block; }
+.footer-tagline { font-family: var(--f-serif); font-style: italic; color: rgba(245,240,232,.22); font-size: .82rem; }
+
+.footer-symbol { display: flex; flex-direction: column; align-items: center; gap: .3rem; text-align: center; }
+.footer-stay   { font-size: .58rem; opacity: .28; letter-spacing: .25em; text-transform: uppercase; }
+.footer-sign   { font-family: var(--f-display); font-size: 2.2rem; color: var(--accent); letter-spacing: .3em; }
+
+.footer-info { font-size: .58rem; opacity: .22; letter-spacing: .07em; line-height: 1.6; }
+
+
+/* ─────────────────────────────────────
+   14. REVEAL (animação de entrada)
+   Elementos começam com opacity:0.
+   JS (IntersectionObserver) adiciona .visible
+   quando entram na viewport.
+   .d1–.d5 = delays em cascata.
+───────────────────────────────────────*/
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .85s var(--ease), transform .85s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal.d1 { transition-delay: .10s; }
+.reveal.d2 { transition-delay: .22s; }
+.reveal.d3 { transition-delay: .36s; }
+.reveal.d4 { transition-delay: .52s; }
+.reveal.d5 { transition-delay: .68s; }
+
+
+/* ─────────────────────────────────────
+   15. @KEYFRAMES
+───────────────────────────────────────*/
+@keyframes gridPulse   { 0%,100%{opacity:.4} 50%{opacity:1} }
+@keyframes floatY      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+@keyframes fadeUp      { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn      { from{opacity:0} to{opacity:1} }
+@keyframes scrollPulse { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15)} }
+@keyframes starFloat   { 0%{transform:translateY(100vh);opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{transform:translateY(-150px);opacity:0} }
+@keyframes glitchScroll { 0%{top:0;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{top:100%;opacity:0} }
+
+
+/* ─────────────────────────────────────
+   16. RESPONSIVIDADE
+   Breakpoint 768px: layout em coluna única
+───────────────────────────────────────*/
+@media (max-width: 768px) {
+  .era                       { grid-template-columns: 1fr; }
+  .era-art                   { height: 55vw; min-height: 250px; order: -1 !important; }
+  .era-info                  { order: 1 !important; }
+  .era-art.art-full-panel    { height: 60vw; }
+  .tracklist                 { grid-template-columns: 1fr; }
+  .members-grid              { grid-template-columns: 1fr; }
+  .nav-links, #side-dots     { display: none; }
+}

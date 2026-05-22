@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Twenty One Pilots — A história completa, álbum por álbum. Stay Alive |-/" />
+  <title>Twenty One Pilots — Stay Alive |-/</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- CURSOR CUSTOMIZADO -->
+  <div id="cursor-dot"  aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar" role="navigation" aria-label="Navegação principal">
+    <a href="#hero" class="nav-brand">TØP</a>
+    <ul class="nav-links">
+      <li><a href="#era-selftitled">Self-Titled</a></li>
+      <li><a href="#era-regional">Regional</a></li>
+      <li><a href="#era-vessel">Vessel</a></li>
+      <li><a href="#era-blurryface">Blurryface</a></li>
+      <li><a href="#era-trench">Trench</a></li>
+      <li><a href="#era-scaled">Scaled &amp; Icy</a></li>
+      <li><a href="#era-clancy">Clancy</a></li>
+      <li><a href="#era-breach">Breach</a></li>
+    </ul>
+  </nav>
+
+  <!-- PONTOS LATERAIS DE NAVEGAÇÃO -->
+  <nav id="side-dots" aria-label="Navegação por era">
+    <button class="sdot" data-label="Self-Titled"    data-target="era-selftitled"></button>
+    <button class="sdot" data-label="Regional"       data-target="era-regional"></button>
+    <button class="sdot" data-label="Vessel"         data-target="era-vessel"></button>
+    <button class="sdot" data-label="Blurryface"     data-target="era-blurryface"></button>
+    <button class="sdot" data-label="Trench"         data-target="era-trench"></button>
+    <button class="sdot" data-label="Scaled &amp; Icy" data-target="era-scaled"></button>
+    <button class="sdot" data-label="Clancy"         data-target="era-clancy"></button>
+    <button class="sdot" data-label="Breach"         data-target="era-breach"></button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero" aria-label="Introdução">
+    <div class="hero-grid"  aria-hidden="true"></div>
+    <div class="hero-glow"  aria-hidden="true"></div>
+    <div id="hero-stars"    aria-hidden="true"></div>
+
+    <!-- Ícone de esqueleto SVG — símbolo do Skeleton Clique -->
+    <div class="hero-logo" aria-hidden="true">
+      <svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="32" r="20" fill="none" stroke="#F4D03F" stroke-width="2.2"/>
+        <circle cx="43" cy="29" r="3.5" fill="#F4D03F"/>
+        <circle cx="57" cy="29" r="3.5" fill="#F4D03F"/>
+        <path d="M43 37 Q50 43 57 37" fill="none" stroke="#F4D03F" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="50" y1="52" x2="50" y2="74"  stroke="#F4D03F" stroke-width="2.2"/>
+        <line x1="50" y1="58" x2="34" y2="70"  stroke="#F4D03F" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="50" y1="58" x2="66" y2="70"  stroke="#F4D03F" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="50" y1="74" x2="38" y2="92"  stroke="#F4D03F" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="50" y1="74" x2="62" y2="92"  stroke="#F4D03F" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <p class="hero-eyebrow">Columbus, Ohio · Est. 2009 · 8 álbuns</p>
+    <h1 class="hero-title" id="hero-title">
+      TWENTY<br>
+      <span class="hero-title-highlight">ONE</span><br>
+      PILOTS
+    </h1>
+    <p class="hero-sub">"We are Twenty One Pilots and so are you." |-/</p>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>ROLAR PARA EXPLORAR</span>
+      <div class="scroll-bar"></div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       ████████████████  ERAS / ÁLBUNS  ████████████████
+       Layout base de cada era:
+         .era         → grade 2 colunas (info | arte)
+         .era.flip    → inverte para (arte | info)
+         .era-info    → painel de texto
+         .era-art     → painel de imagem
+  ========================================================= -->
+
+  <!-- ─── ERA 1: SELF-TITLED (2009) ─── -->
+  <section class="era" id="era-selftitled">
+    <div class="era-grid-overlay" aria-hidden="true"></div>
+    <div class="era-number"       aria-hidden="true">01</div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2009 · Twenty One Pilots</p>
+      <h2 class="era-title reveal d1">TWENTY<br>ONE PILOTS</h2>
+      <p class="era-tagline reveal d2">"A semente de tudo — gravada num porão em Columbus, Ohio."</p>
+      <div class="pills reveal d2">
+        <span class="pill">14 faixas</span>
+        <span class="pill">Self-Released</span>
+        <span class="pill">Indie / Alt</span>
+      </div>
+      <p class="era-desc reveal d3">
+        O álbum de estreia foi lançado de forma totalmente independente por Tyler Joseph, ainda estudante
+        universitário. A formação original incluía Nick Thomas e Chris Salih — que deixariam a banda em 2011.
+        Antes de Josh, antes do Fueled by Ramen — apenas Tyler, seu piano e suas questões mais profundas sobre
+        fé e identidade. Praticamente impossível de encontrar nas plataformas, mas lendário entre os fãs mais
+        antigos do Skeleton Clique.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">Implicit Demand for Proof</li>
+        <li class="track">Fall Away</li>
+        <li class="track">The Pantaloon</li>
+        <li class="track highlight">Addict with a Pen</li>
+        <li class="track highlight">Friend, Please</li>
+        <li class="track">March to the Sea</li>
+        <li class="track">Johnny Boy</li>
+        <li class="track highlight">Oh, Ms. Believer</li>
+        <li class="track">Air Catcher</li>
+        <li class="track">Trapdoor</li>
+        <li class="track">A Car, a Torch, a Death</li>
+        <li class="track">Taxi Cab</li>
+        <li class="track">Before You Start Your Day</li>
+        <li class="track highlight">Isle of Flightless Birds</li>
+      </ol>
+    </div>
+
+    <div class="era-art">
+      <figure class="album-frame reveal d2">
+        <!-- Capa oficial do álbum Self-Titled (2009) -->
+        <img src="images/selftitled.png"
+             alt="Capa do álbum Twenty One Pilots (2009) — arte original do disco independente"
+             loading="lazy" />
+      </figure>
+    </div>
+  </section>
+  <div class="era-divider"></div>
+
+
+  <!-- ─── ERA 2: REGIONAL AT BEST (2011) ─── -->
+  <section class="era flip" id="era-regional">
+    <div class="era-number" aria-hidden="true">02</div>
+
+    <div class="era-art">
+      <figure class="album-frame reveal d2">
+        <!-- Capa oficial Regional at Best (2011) -->
+        <img src="images/regional.webp"
+             alt="Capa do álbum Regional at Best (2011)"
+             loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2011 · Regional at Best</p>
+      <h2 class="era-title reveal d1">REGIONAL<br>AT BEST</h2>
+      <p class="era-tagline reveal d2">"O disco que transformou Tyler e Josh numa dupla lendária."</p>
+      <div class="pills reveal d2">
+        <span class="pill">14 faixas</span>
+        <span class="pill">Fueled by Ramen</span>
+        <span class="pill">Alt / Indie</span>
+      </div>
+      <p class="era-desc reveal d3">
+        Aqui Josh Dun entra para a história. RAB marcou a transição do projeto solo para uma dupla icônica.
+        Com som mais maduro e letras densas sobre saúde mental e fé, o álbum conquistou Ohio antes de ganhar
+        o mundo. Tyler reutilizaria várias faixas no Vessel. Ficou fora das plataformas por anos — tornando-o
+        lendário entre o Skeleton Clique. Car Radio aparece aqui antes de dominar as rádios mundiais.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">Guns for Hands</li>
+        <li class="track highlight">Holding On to You</li>
+        <li class="track">Ode to Sleep</li>
+        <li class="track">Slowtown</li>
+        <li class="track highlight">Car Radio</li>
+        <li class="track">Forest</li>
+        <li class="track">Glowing Eyes</li>
+        <li class="track">Kitchen Sink</li>
+        <li class="track">Anathema</li>
+        <li class="track">Lovely</li>
+        <li class="track">Ruby</li>
+        <li class="track highlight">Trees</li>
+        <li class="track">Be Concerned</li>
+        <li class="track">Clear</li>
+      </ol>
+    </div>
+  </section>
+  <div class="era-divider"></div>
+
+
+  <!-- ─── ERA 3: VESSEL (2013) ─── -->
+  <section class="era" id="era-vessel">
+    <div class="era-number" aria-hidden="true">03</div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2013 · Vessel</p>
+      <h2 class="era-title reveal d1">VESSEL</h2>
+      <p class="era-tagline reveal d2">"O momento em que o mundo começou a prestar atenção."</p>
+      <div class="pills reveal d2">
+        <span class="pill">12 faixas</span>
+        <span class="pill">Fueled by Ramen</span>
+        <span class="pill">Indie / Alternative</span>
+      </div>
+      <p class="era-desc reveal d3">
+        Vessel foi o breakthrough. Car Radio começou a tocar nas rádios e Holding On to You virou hit.
+        A dupla saiu dos porões de Ohio para os grandes festivais, com visual icônico: as máscaras e o
+        piano sobre a bateria de Josh. Todos os 12 tracks foram certificados Gold pela RIAA — façanha que
+        se repetiria no Blurryface, tornando o TØP o único artista da história a conseguir isso em dois
+        álbuns consecutivos.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">Ode to Sleep</li>
+        <li class="track highlight">Holding on to You</li>
+        <li class="track">Migraine</li>
+        <li class="track highlight">House of Gold</li>
+        <li class="track highlight">Car Radio</li>
+        <li class="track">Semi-Automatic</li>
+        <li class="track">Screen</li>
+        <li class="track">The Run and Go</li>
+        <li class="track">Fake You Out</li>
+        <li class="track">Guns for Hands</li>
+        <li class="track highlight">Trees</li>
+        <li class="track highlight">Truce</li>
+      </ol>
+    </div>
+
+    <div class="era-art">
+      <figure class="album-frame reveal d2">
+        <!-- Capa oficial Vessel (2013) — olho / vessel geométrico em bege -->
+        <img src="images/vessel.jpg"
+             alt="Capa do álbum Vessel (2013) — ilustração geométrica do olho/vessel em tons bege e vermelho escuro"
+             loading="lazy" />
+      </figure>
+    </div>
+  </section>
+  <div class="era-divider"></div>
+
+
+  <!-- ─── ERA 4: BLURRYFACE (2015) ─── -->
+  <!--
+    Usa foto real da banda (paisagem 1000x510).
+    .art-full-panel = imagem cobre toda a altura do painel
+    como editorial de revista.
+  -->
+  <section class="era flip" id="era-blurryface">
+    <div class="glitch-bg" id="glitch-bg" aria-hidden="true"></div>
+    <div class="era-number" aria-hidden="true">04</div>
+
+    <div class="era-art art-full-panel">
+      <figure class="album-frame reveal d2">
+        <!-- Foto real de Tyler e Josh com pintura preta característica da era Blurryface -->
+        <img src="images/blurryface-band.jpg"
+             alt="Tyler Joseph e Josh Dun com mãos e pescoço pintados de preto — era Blurryface (2015)"
+             loading="lazy" />
+        <figcaption>Tyler &amp; Josh — Era Blurryface · 2015</figcaption>
+      </figure>
+    </div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2015 · Blurryface</p>
+      <h2 class="era-title reveal d1">BLURRY<br>FACE</h2>
+      <p class="era-tagline reveal d2">"O alter-ego que representa tudo que nos envergonha de nós mesmos."</p>
+      <div class="pills reveal d2">
+        <span class="pill">14 faixas</span>
+        <span class="pill">Fueled by Ramen</span>
+        <span class="pill">2× Grammy Award</span>
+      </div>
+      <p class="era-desc reveal d3">
+        Blurryface catapultou o TØP para o mainstream mundial. Stressed Out e Ride dominaram as paradas.
+        Blurryface é o alter-ego de Tyler — a personificação das suas inseguranças — representado pelas mãos
+        e pescoço pintados de preto nos shows. Primeiro álbum na história com todas as faixas certificadas
+        Gold pela RIAA. Dois Grammys em 2017 confirmaram o que os fãs já sabiam.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">Heavydirtysoul</li>
+        <li class="track highlight">Stressed Out</li>
+        <li class="track highlight">Ride</li>
+        <li class="track">Fairly Local</li>
+        <li class="track highlight">Tear in My Heart</li>
+        <li class="track">Lane Boy</li>
+        <li class="track highlight">The Judge</li>
+        <li class="track">Doubt</li>
+        <li class="track">Polarize</li>
+        <li class="track">We Don't Believe What's on TV</li>
+        <li class="track">Message Man</li>
+        <li class="track">Hometown</li>
+        <li class="track">Not Today</li>
+        <li class="track highlight">Goner</li>
+      </ol>
+    </div>
+  </section>
+  <div class="era-divider"></div>
+
+
+  <!-- ─── ERA 5: TRENCH (2018) ─── -->
+  <!--
+    Também usa foto real da banda (paisagem 636x421).
+    .art-full-panel para cobertura editorial.
+  -->
+  <section class="era" id="era-trench">
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="era-number" aria-hidden="true">05</div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2018 · Trench</p>
+      <h2 class="era-title reveal d1">TRENCH</h2>
+      <p class="era-tagline reveal d2">"Escape de Dema. Os banditos te esperam no Trench."</p>
+      <div class="pills reveal d2">
+        <span class="pill">14 faixas</span>
+        <span class="pill">Fueled by Ramen</span>
+        <span class="pill">Concept Album</span>
+      </div>
+      <p class="era-desc reveal d3">
+        Após dois anos de silêncio e "desaparecimento" das redes, o TØP retornou com um universo novo:
+        Dema, os bispos, os banditos e o Trench. Uma alegoria sobre depressão, controle e luta pela
+        liberdade. Jumpsuit é o hino da era. Neon Gravestones é a música mais corajosa da carreira —
+        crítica direta à glorificação do suicídio. Legend foi escrita para o pai de Tyler, que faleceu
+        durante a gravação.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">Jumpsuit</li>
+        <li class="track">Levitate</li>
+        <li class="track">Morph</li>
+        <li class="track">My Blood</li>
+        <li class="track highlight">Chlorine</li>
+        <li class="track">Smithereens</li>
+        <li class="track highlight">Neon Gravestones</li>
+        <li class="track highlight">The Hype</li>
+        <li class="track highlight">Nico and the Niners</li>
+        <li class="track">Cut My Lip</li>
+        <li class="track highlight">Bandito</li>
+        <li class="track">Pet Cheetah</li>
+        <li class="track">Legend</li>
+        <li class="track">Leave the City</li>
+      </ol>
+    </div>
+
+    <div class="era-art art-full-panel">
+      <figure class="album-frame reveal d2">
+        <!-- Foto real de Tyler e Josh com vestimenta da era Trench/Bandito (2018) -->
+        <img src="images/trench-band.jpg"
+             alt="Tyler Joseph e Josh Dun com roupas da era Trench — banditos com capuzes amarelos (2018)"
+             loading="lazy" />
+        <figcaption>Tyler &amp; Josh — Era Trench · 2018</figcaption>
+      </figure>
+    </div>
+  </section>
+  <div class="era-divider"></div>
+
+
+  <!-- ─── ERA 6: SCALED AND ICY (2021) ─── -->
+  <section class="era flip" id="era-scaled">
+    <div class="era-number" aria-hidden="true">06</div>
+
+    <div class="era-art">
+      <figure class="album-frame reveal d2">
+        <!-- Capa oficial Scaled and Icy (2021) — criatura de escamas azuis fundo escuro -->
+        <img src="images/scaled-icy.webp"
+             alt="Capa do álbum Scaled and Icy (2021) — ilustração de criatura com escamas em tons azuis"
+             loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2021 · Scaled and Icy</p>
+      <h2 class="era-title reveal d1">SCALED<br>AND ICY</h2>
+      <p class="era-tagline reveal d2">"Uma transmissão de dentro de Dema — ou é o que parece?"</p>
+      <div class="pills reveal d2">
+        <span class="pill">11 faixas</span>
+        <span class="pill">Fueled by Ramen</span>
+        <span class="pill">Art Pop</span>
+      </div>
+      <p class="era-desc reveal d3">
+        Lançado durante a pandemia, Scaled and Icy é o álbum mais divisivo da discografia. Na superfície:
+        sons pop, coloridos e acessíveis. Mas para fãs atentos ao lore, é uma transmissão controlada de
+        dentro de Dema. O anagrama de "Scaled and Icy" esconde "Clancy is Dead" — detalhe que mudou tudo.
+        A estética retrô-colorida esconde mensagens sombrias. Parece feliz mas te deixa inquieto.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">Good Day</li>
+        <li class="track highlight">Choker</li>
+        <li class="track highlight">Shy Away</li>
+        <li class="track">The Outside</li>
+        <li class="track highlight">Saturday</li>
+        <li class="track">Never Take It</li>
+        <li class="track">Mulberry Street</li>
+        <li class="track">Formidable</li>
+        <li class="track">Bounce Man</li>
+        <li class="track">No Chances</li>
+        <li class="track highlight">Redecorate</li>
+      </ol>
+    </div>
+  </section>
+  <div class="era-divider"></div>
+
+
+  <!-- ─── ERA 7: CLANCY (2024) ─── -->
+  <!-- Tema: vermelho sangue, conforme a estética real do álbum -->
+  <section class="era" id="era-clancy">
+    <div class="era-number" aria-hidden="true">07</div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2024 · Clancy</p>
+      <h2 class="era-title reveal d1">CLANCY</h2>
+      <p class="era-tagline reveal d2">"A conclusão (quase). O fim de uma era — ou será?"</p>
+      <div class="pills reveal d2">
+        <span class="pill">13 faixas</span>
+        <span class="pill">Fueled by Ramen</span>
+        <span class="pill">Art Rock / Concept</span>
+      </div>
+      <p class="era-desc reveal d3">
+        Clancy aprofunda a saga. O personagem Clancy — mencionado nas cartas misteriosas enviadas pelo
+        dmaorg.info — finalmente tem sua história expandida. Com produção épica, Overcompensate abre como
+        um soco no estômago. Paladin Strait fecha com um cliffhanger que exigiria o Breach para resolver.
+        Top 3 no Billboard 200 e #1 na Austrália, Alemanha e Escócia.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">Overcompensate</li>
+        <li class="track highlight">Next Semester</li>
+        <li class="track">Backslide</li>
+        <li class="track highlight">Midwest Indigo</li>
+        <li class="track highlight">Routines in the Night</li>
+        <li class="track">Vignette</li>
+        <li class="track">The Craving (Jenna's Version)</li>
+        <li class="track">Lavish</li>
+        <li class="track">Navigating</li>
+        <li class="track">Snap Back</li>
+        <li class="track">Oldies Station</li>
+        <li class="track">At the Risk of Feeling Dumb</li>
+        <li class="track highlight">Paladin Strait</li>
+      </ol>
+    </div>
+
+    <div class="era-art">
+      <figure class="album-frame reveal d2">
+        <!-- Capa oficial Clancy (2024) — dois homens de terno preto fundo roxo/cinza -->
+        <img src="images/clancy.jpg"
+             alt="Capa do álbum Clancy (2024) — Tyler Joseph e Josh Dun de terno preto sobre fundo neutro"
+             loading="lazy" />
+      </figure>
+    </div>
+  </section>
+  <div class="era-divider"></div>
+
+
+  <!-- ─── ERA 8: BREACH (2025) ─── -->
+  <section class="era flip" id="era-breach">
+    <div class="era-number" aria-hidden="true">08</div>
+
+    <div class="era-art">
+      <figure class="album-frame reveal d2">
+        <!-- Capa oficial Breach (2025) -->
+        <img src="images/breach.jpg"
+             alt="Capa do álbum Breach (2025) — capítulo final da saga Dema"
+             loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="era-info">
+      <p class="era-chip reveal">2025 · Breach</p>
+      <h2 class="era-title reveal d1">BREACH</h2>
+      <p class="era-tagline reveal d2">"O capítulo final. A história de Dema chega ao fim de vez."</p>
+      <div class="pills reveal d2">
+        <span class="pill">13 faixas</span>
+        <span class="pill">Fueled by Ramen</span>
+        <span class="pill">#1 Billboard 200</span>
+      </div>
+      <p class="era-desc reveal d3">
+        Lançado em setembro de 2025, Breach conclui definitivamente a saga Dema. Tyler confirmou: "A história
+        termina com este." Maior semana de abertura em vinyl de um álbum rock desde 1991. Josh Dun canta pela
+        primeira vez em uma gravação — no bridge de Drum Show. City Walls e The Contract são os hinos
+        definitivos. O final que 10 anos de lore mereciam.
+      </p>
+      <p class="tracklist-header reveal d3">Tracklist Completa</p>
+      <ol class="tracklist reveal d4">
+        <li class="track highlight">City Walls</li>
+        <li class="track highlight">RAWFEAR</li>
+        <li class="track highlight">Drum Show</li>
+        <li class="track">Garbage</li>
+        <li class="track highlight">The Contract</li>
+        <li class="track">Downstairs</li>
+        <li class="track">Robot Voices</li>
+        <li class="track">Center Mass</li>
+        <li class="track">Cottonwood</li>
+        <li class="track">One Way</li>
+        <li class="track">Days Lie Dormant</li>
+        <li class="track">Tally</li>
+        <li class="track highlight">Intentions</li>
+      </ol>
+    </div>
+  </section>
+
+
+  <!-- ===== LORE: O UNIVERSO DE DEMA ===== -->
+  <section id="lore" aria-label="Universo narrativo de Dema">
+    <h2 class="lore-title reveal">O UNIVERSO<br>DE DEMA</h2>
+    <div class="lore-grid">
+      <article class="lore-card reveal">
+        <div class="lore-icon">🏙️</div>
+        <h3>DEMA</h3>
+        <p>Cidade fictícia controlada por nove bispos que representam a depressão e o controle mental. Os residentes são mantidos em conformidade pelo "Neon Gravestones" — a glorificação da autodestruição. Uma alegoria para a mente presa em padrões destrutivos.</p>
+      </article>
+      <article class="lore-card reveal d1">
+        <div class="lore-icon">🪁</div>
+        <h3>OS BANDITOS</h3>
+        <p>Rebeldes que vivem no Trench — território entre Dema e a liberdade. Usam capuzes amarelos para se camuflar da visão dos bispos, cegos para essa cor. Representam a comunidade que se apoia mutuamente — os próprios fãs do TØP.</p>
+      </article>
+      <article class="lore-card reveal d2">
+        <div class="lore-icon">📜</div>
+        <h3>CLANCY</h3>
+        <p>Protagonista da saga. Suas cartas foram compartilhadas com fãs pelo dmaorg.info. "Clancy is Dead" — escondida no anagrama de "Scaled and Icy" — gerou anos de teoria até Clancy (2024) e Breach (2025) revelarem tudo.</p>
+      </article>
+      <article class="lore-card reveal d3">
+        <div class="lore-icon">☠️</div>
+        <h3>BLURRYFACE</h3>
+        <p>O alter-ego de Tyler Joseph — personificação das suas inseguranças mais profundas. Manifesta-se nas mãos e pescoço pintados de preto. Representa a voz interna negativa que todos carregamos.</p>
+      </article>
+      <article class="lore-card reveal">
+        <div class="lore-icon">💀</div>
+        <h3>SKELETON CLIQUE</h3>
+        <p>O nome da fanbase. Somos todos esqueletos — despidos de tudo que o mundo projeta em nós. Uma comunidade que encontrou nas músicas um motivo para continuar. "Stay alive, |-/."</p>
+      </article>
+      <article class="lore-card reveal d1">
+        <div class="lore-icon">|-/</div>
+        <h3>O SÍMBOLO</h3>
+        <p>O símbolo |-/ é a assinatura visual do TØP — interpretado como "stay alive" em código estilizado. Aparece em shows, merch, e é feito com os dedos pelos fãs durante as apresentações.</p>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- ===== MEMBROS ===== -->
+  <section id="members" aria-label="Integrantes da banda">
+    <h2 class="reveal">A DUPLA</h2>
+    <div class="members-grid">
+
+      <article class="member-card tyler reveal">
+        <div class="member-photo-wrap">
+          <!-- Foto real de Tyler Joseph -->
+          <img src="images/tyler.jpg"
+               alt="Tyler Joseph — vocalista e compositor do Twenty One Pilots"
+               loading="lazy" />
+        </div>
+        <h3 class="member-name">TYLER JOSEPH</h3>
+        <p class="member-role">Vocais · Piano · Guitarra · Ukulele · Composição</p>
+        <p class="member-bio">
+          Nascido em Columbus, Ohio (1988). Fundou o TØP em 2009. Compositor principal e a voz por trás de cada
+          letra. Casado com Jenna Black, pai de três filhos. Cristão devoto cuja fé permeia toda a discografia.
+          Tyler canta sobre saúde mental antes de ser mainstream falar sobre isso — e salva vidas ao fazer isso.
+        </p>
+      </article>
+
+      <article class="member-card josh reveal d2">
+        <div class="member-photo-wrap">
+          <!-- Foto real de Josh Dun -->
+          <img src="images/josh.jpg"
+               alt="Josh Dun — baterista do Twenty One Pilots"
+               loading="lazy" />
+        </div>
+        <h3 class="member-name">JOSH DUN</h3>
+        <p class="member-role">Bateria · Trompete · Backing Vocals</p>
+        <p class="member-bio">
+          Nascido em Columbus, Ohio (1988). Autodidata na bateria — nunca fez aulas formais. Casado com Debby Ryan.
+          Seus solos são momentos de pura adrenalina. Frequentemente toca em superfícies elevadas — pianos, andaimes,
+          estruturas no meio do público. Em Breach (2025), cantou pela primeira vez numa gravação.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-logo">TØP</span>
+      <span class="footer-tagline">"We are Twenty One Pilots and so are you."</span>
+    </div>
+    <div class="footer-symbol">
+      <span class="footer-stay">Stay Alive</span>
+      <span class="footer-sign">|-/</span>
+    </div>
+    <div class="footer-info">
+      8 álbuns · 2009–2025<br>Columbus, Ohio<br>
+      21PilotsProject · Skeleton Clique ♥
+    </div>
+  </footer>
+
+  <!-- JS carregado no final para não bloquear o render -->
+  <script src="js/script.js"></script>
+
+</body>
+</html>
